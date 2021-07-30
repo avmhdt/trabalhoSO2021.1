@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1625689057 source:c:\users\jose carvalho\documents\prog\codeblocks\lotteryscheduling\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"process.h"
+	"sched.h"
+	"lottery.h"
+
+1625689057 c:\users\jose carvalho\documents\prog\codeblocks\lotteryscheduling\process.h
+	<stdlib.h>
+
+1625689057 c:\users\jose carvalho\documents\prog\codeblocks\lotteryscheduling\sched.h
+	"process.h"
+
+1625689057 c:\users\jose carvalho\documents\prog\codeblocks\lotteryscheduling\lottery.h
+	"sched.h"
+
+1625689057 source:c:\users\jose carvalho\documents\prog\codeblocks\lotteryscheduling\process.c
+	<stdlib.h>
+	<stdio.h>
+	"process.h"
+	"sched.h"
+
+1625689057 source:c:\users\jose carvalho\documents\prog\codeblocks\lotteryscheduling\sched.c
+	<stdio.h>
+	<string.h>
+	"sched.h"
+
