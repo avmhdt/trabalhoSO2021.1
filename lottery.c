@@ -25,6 +25,9 @@ int getRandom(a, b) {
     return a + rand() % b;
 }
 
+int getNumTickets(LotterySchedParams *params) {
+    return params->num_tickets;
+}
 
 //=====Funcoes da API=====
 
@@ -34,6 +37,7 @@ int getRandom(a, b) {
 //Deve envolver o registro do algoritmo junto ao escalonador
 void lottInitSchedInfo() {
 	//...
+	SchedInfo *lottSchedInfo;
 }
 
 //Inicializa os parametros de escalonamento de um processo p, chamada
@@ -52,11 +56,10 @@ Process* lottSchedule(Process *plist) {
     void *currentParams;
     while(current) {
         currentParams = processGetSchedParams(current);
-
-        counter += ->num_tickets;
+        counter += getNumTickets(currentParams);
         if(counter > winner)
             break;
-        current = current->next;
+        current = processGetNext(current);
     }
 //	return NULL;
     return current;

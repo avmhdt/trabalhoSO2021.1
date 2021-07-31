@@ -17,7 +17,7 @@
 
 typedef struct lottery_params {
         int num_tickets;
-//        Process *plist;
+        Process *plist;
         //...
         //...
 } LotterySchedParams;
