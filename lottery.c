@@ -21,7 +21,7 @@ const char lottName[]="LOTT";
 int numTickets;
 
 // Retorna inteiro aleatório entre [a, b)
-int getRandom(a, b) {
+int getRandom(int a, int b) {
     return a + rand() % b;
 }
 
@@ -50,7 +50,8 @@ void lottInitSchedInfo() {
 	//...
 	numTickets = 0;
 	SchedInfo *lottSchedInfo;
-	strcpy(lottSchedInfo, lottName);
+	lottSchedInfo = malloc(sizeof(SchedInfo));
+	strcpy(lottSchedInfo->name, lottName);
 	lottSchedInfo->initParamsFn = lottInitSchedParams;
 	lottSchedInfo->releaseParamsFn = lottReleaseParams;
 	lottSchedInfo->scheduleFn = lottSchedule;
