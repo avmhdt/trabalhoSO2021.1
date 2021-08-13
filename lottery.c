@@ -105,12 +105,12 @@ int lottReleaseParams(Process *p) {
 //Retorna o numero de tickets efetivamente transfeirdos (pode ser menos)
 int lottTransferTickets(Process *src, Process *dst, int tickets) {
 	//...
-	void *srcParams, *dstParams;
+	LotterySchedParams *srcParams, *dstParams;
 	int srcTickets, dstTickets, actualTickets;
 	srcParams = processGetSchedParams(src);
 	dstParams = processGetSchedParams(dst);
-	srcTickets = getNumTickets(src);
-	dstTickets = getNumTickets(dst);
+	srcTickets = getNumTickets(srcParams);
+	dstTickets = getNumTickets(dstParams);
     actualTickets = min(srcTickets, tickets);
     srcTickets -= actualTickets;
     dstTickets += actualTickets;
