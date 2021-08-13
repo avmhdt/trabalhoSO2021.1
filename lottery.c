@@ -9,9 +9,10 @@
 *
 */
 
-#include "lottery.h"
+
 #include <stdio.h>
 #include <string.h>
+#include "lottery.h"
 
 //Nome unico do algoritmo. Deve ter 4 caracteres.
 const char lottName[]="LOTT";
@@ -20,12 +21,13 @@ const char lottName[]="LOTT";
 
 int numTickets;
 
-// Retorna inteiro aleatório entre [a, b)
+// Retorna inteiro aleatï¿½rio entre [a, b)
 int getRandom(int a, int b) {
     return a + rand() % b;
 }
 
-int min(int a , int b) {
+int mininum(int a , int b) 
+{
     if(a < b) {
         return a;
     }
@@ -111,7 +113,7 @@ int lottTransferTickets(Process *src, Process *dst, int tickets) {
 	dstParams = processGetSchedParams(dst);
 	srcTickets = getNumTickets(src);
 	dstTickets = getNumTickets(dst);
-    actualTickets = min(srcTickets, tickets);
+    actualTickets = mininum(srcTickets, tickets);
     srcTickets -= actualTickets;
     dstTickets += actualTickets;
     setNumTickets(srcParams, srcTickets);

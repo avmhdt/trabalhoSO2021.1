@@ -15,11 +15,25 @@
 
 #include "sched.h"
 
+
+
 typedef struct lottery_params {
         int num_tickets;
         //...
         //...
 } LotterySchedParams;
+
+
+
+// Funcoes auxiliares
+
+int getRandom(int a, int b);
+
+int mininum(int a , int b);
+
+int getNumTickets(LotterySchedParams *params);
+
+void setNumTickets(LotterySchedParams *params, int tickets);
 
 //Funcao chamada pela inicializacao do S.O. para a incializacao do escalonador
 //conforme o algoritmo Lottery Scheduling
