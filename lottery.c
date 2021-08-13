@@ -18,7 +18,7 @@ const char lottName[]="LOTT";
 
 //=====Funcoes Auxiliares=====
 
-int numTickets;
+//int numTickets;
 
 // Retorna inteiro aleatório entre [a, b)
 int getRandom(int a, int b) {
@@ -40,6 +40,22 @@ void setNumTickets(LotterySchedParams *params, int tickets) {
     params->num_tickets = tickets;
 }
 
+int getTotalAvailableTickets(Process *plist) {
+    Process *current = plist;
+    LotterySchedParams *params;
+    int totalTickets = 0;
+    int status;
+    while(current) {
+        params = processGetSchedParams(current);
+        status = processGetStatus(current);
+        if(status == PROC_READY || status == PROC_RUNNING) {
+            totalTickets += getNumTickets(params);
+        }
+        current = processGetNext(current);
+    }
+    return totalTickets;
+}
+
 //=====Funcoes da API=====
 
 //Funcao chamada pela inicializacao do S.O. para a incializacao do escalonador
@@ -48,7 +64,7 @@ void setNumTickets(LotterySchedParams *params, int tickets) {
 //Deve envolver o registro do algoritmo junto ao escalonador
 void lottInitSchedInfo() {
 	//...
-	numTickets = 0;
+//	numTickets = 0;
 	SchedInfo *lottSchedInfo;
 	lottSchedInfo = malloc(sizeof(SchedInfo));
 	strcpy(lottSchedInfo->name, lottName);
@@ -63,25 +79,29 @@ void lottInitSchedInfo() {
 //normalmente quando o processo e' associado ao slot de Lottery
 void lottInitSchedParams(Process *p, void *params) {
 	//...
-	numTickets += getNumTickets(params);
+//	numTickets += getNumTickets(params);
 	processSetSchedParams(p, params);
 }
 
 //Retorna o proximo processo a obter a CPU, conforme o algortimo Lottery
 Process* lottSchedule(Process *plist) {
 	//...
+    int availableTickets = getTotalAvailableTickets(plist);
     int counter = 0;
-    int winner = getRandom(0, numTickets);
+    int winner = getRandom(0, availableTickets);
+    int status;
     Process *current = plist;
     void *currentParams;
     while(current) {
         currentParams = processGetSchedParams(current);
-        counter += getNumTickets(currentParams);
-        if(counter > winner)
-            break;
+        status = processGetStatus(current);
+        if(status == PROC_READY || status == PROC_RUNNING) {
+            counter += getNumTickets(currentParams);
+            if(counter > winner)
+                break;
+        }
         current = processGetNext(current);
     }
-//	return NULL;
     return current;
 }
 
@@ -90,15 +110,15 @@ Process* lottSchedule(Process *plist) {
 //Retorna o numero do slot ao qual o processo estava associado
 int lottReleaseParams(Process *p) {
 	//...
-	void* thisParams = processGetSchedParams(p);
-	int thisNumTickets = getNumTickets(thisParams);
-	numTickets -= thisNumTickets;
+//	void* thisParams = processGetSchedParams(p);
+//	int thisNumTickets = getNumTickets(thisParams);
+//	numTickets -= thisNumTickets;
 	processSetSchedParams(p, NULL);
 	free(processGetSchedParams(p));
-	if(numTickets < 0) {
-        fprintf(stderr, "Error! numTickets < 0\n");
-        return -1;
-	}
+//	if(numTickets < 0) {
+//        fprintf(stderr, "Error! numTickets < 0\n");
+//        return -1;
+//	}
 	return processGetSchedSlot(p);
 }
 
