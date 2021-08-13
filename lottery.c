@@ -94,6 +94,7 @@ int lottReleaseParams(Process *p) {
 	int thisNumTickets = getNumTickets(thisParams);
 	numTickets -= thisNumTickets;
 	processSetSchedParams(p, NULL);
+	free(processGetSchedParams(p));
 	if(numTickets < 0) {
         fprintf(stderr, "Error! numTickets < 0\n");
         return -1;
