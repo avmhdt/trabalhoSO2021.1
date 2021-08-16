@@ -18,8 +18,6 @@ const char lottName[]="LOTT";
 
 //=====Funcoes Auxiliares=====
 
-//int numTickets;
-
 // Retorna inteiro aleatório entre [a, b)
 int getRandom(int a, int b) {
     return a + rand() % b;
@@ -64,7 +62,6 @@ int getTotalAvailableTickets(Process *plist) {
 //Deve envolver o registro do algoritmo junto ao escalonador
 void lottInitSchedInfo() {
 	//...
-//	numTickets = 0;
 	SchedInfo *lottSchedInfo;
 	lottSchedInfo = malloc(sizeof(SchedInfo));
 	strcpy(lottSchedInfo->name, lottName);
@@ -79,7 +76,6 @@ void lottInitSchedInfo() {
 //normalmente quando o processo e' associado ao slot de Lottery
 void lottInitSchedParams(Process *p, void *params) {
 	//...
-//	numTickets += getNumTickets(params);
 	processSetSchedParams(p, params);
 }
 
@@ -110,15 +106,8 @@ Process* lottSchedule(Process *plist) {
 //Retorna o numero do slot ao qual o processo estava associado
 int lottReleaseParams(Process *p) {
 	//...
-//	void* thisParams = processGetSchedParams(p);
-//	int thisNumTickets = getNumTickets(thisParams);
-//	numTickets -= thisNumTickets;
 	processSetSchedParams(p, NULL);
 	free(processGetSchedParams(p));
-//	if(numTickets < 0) {
-//        fprintf(stderr, "Error! numTickets < 0\n");
-//        return -1;
-//	}
 	return processGetSchedSlot(p);
 }
 
